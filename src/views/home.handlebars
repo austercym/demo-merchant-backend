@@ -1,0 +1,23 @@
+<p style="text-align:'center'">Loading ...</p>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var settings = {
+            client_id: "{{clientId}}",
+            authority: "{{authority}}",
+            redirect_uri: "{{redirectUri}}",
+            response_type: 'id_token token',
+            scope: 'openid payment',
+            filterProtocolClaims: true,
+            loadUserInfo: true
+        }
+    
+    var client = new Oidc.OidcClient(settings);
+        client.createSigninRequest({ request: "{{request}}" ,state: { bar: 15 } }).then(function (req) {
+            console.log("signin request", req, "<a href='" + req.url + "'>go signin</a>");
+             window.location = req.url;
+        }).catch(function (err) {
+            console.log(err);
+        });
+    });
+
+</script>
